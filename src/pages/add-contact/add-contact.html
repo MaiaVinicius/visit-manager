@@ -1,0 +1,117 @@
+<!--
+  Generated template for the AddContactPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Adicionar contato</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form (ngSubmit)="addContact()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Nome do cliente</ion-label>
+        <ion-input name="name" required type="text" [(ngModel)]="contactInfo.name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Telefone</ion-label>
+        <ion-input name="phone" required type="tel" [(ngModel)]="contactInfo.phone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Celular</ion-label>
+        <ion-input name="celphone" type="tel" [(ngModel)]="contactInfo.celphone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>E-mail</ion-label>
+        <ion-input name="email" required type="email" [(ngModel)]="contactInfo.email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Nome com quem falou?</ion-label>
+        <ion-input name="nameSpeakedWith" required type="text" [(ngModel)]="contactInfo.nameSpeakedWith"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Função com quem falou?</ion-label>
+        <ion-select name="functionSpeakedWith" multiple [(ngModel)]="contactInfo.functionSpeakedWith">
+          <ion-option value="nes">Administrador</ion-option>
+          <ion-option value="n64">Secretária</ion-option>
+          <ion-option value="ps">Faturista</ion-option>
+          <ion-option value="genesis">Sócio</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Nome do administrador</ion-label>
+        <ion-input name="administratorName" required type="text" [(ngModel)]="contactInfo.administratorName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Especialidades</ion-label>
+        <ion-select name="specialties" multiple [(ngModel)]="contactInfo.specialties">
+          <ion-option value="nes">NES</ion-option>
+          <ion-option value="n64">Nintendo64</ion-option>
+          <ion-option value="ps">PlayStation</ion-option>
+          <ion-option value="genesis">Sega Genesis</ion-option>
+          <ion-option value="saturn">Sega Saturn</ion-option>
+          <ion-option value="snes">SNES</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Sistema atual</ion-label>
+        <ion-select name="currentSoftware" [(ngModel)]="contactInfo.currentSoftware">
+          <ion-option value="nes">Não tem</ion-option>
+          <ion-option value="nes">Visual Asa</ion-option>
+          <ion-option value="n64">Personal Med</ion-option>
+          <ion-option value="ps">HiDoctor</ion-option>
+          <ion-option value="genesis">ProDoctor</ion-option>
+          <ion-option value="saturn">Com Amigo</ion-option>
+          <ion-option value="snes">iClinic</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Satisfação com o sistema atual</ion-label>
+        <ion-select name="satisfaction" [(ngModel)]="contactInfo.satisfaction">
+          <ion-option value="1">Baixa</ion-option>
+          <ion-option value="2">Média</ion-option>
+          <ion-option value="3">Alta</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Usuários aproximados</ion-label>
+        <ion-input name="userAproximately" type="number" [(ngModel)]="contactInfo.userAproximately"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Interesse no Feegow Clinic</ion-label>
+        <ion-select name="interestLevel" [(ngModel)]="contactInfo.interestLevel">
+          <ion-option value="1">Baixo</ion-option>
+          <ion-option value="2">Médio</ion-option>
+          <ion-option value="3">Alto</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Observações</ion-label>
+        <ion-textarea name="obs" [(ngModel)]="contactInfo.obs"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <button ion-button full large>Cadastrar</button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
