@@ -42,4 +42,25 @@ export class RestapiService {
         });
     });
   }
+
+  getSpecialties() {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiUrl + '/getSpecialties')
+        .map(res => res.json())
+        .subscribe(data => {
+          this.data = data;
+          resolve(this.data);
+        });
+    });
+  }
+  getSoftwares() {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiUrl + '/getSoftwares')
+        .map(res => res.json())
+        .subscribe(data => {
+          this.data = data;
+          resolve(this.data);
+        });
+    });
+  }
 }

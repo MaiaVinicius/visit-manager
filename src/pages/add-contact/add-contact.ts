@@ -18,6 +18,8 @@ import {RestapiService} from "../../providers/restapi-service/restapi-service";
 })
 export class AddContactPage {
   address;
+  specialties;
+  softwares;
   lat;
   lng;
   contactInfo = {};
@@ -27,6 +29,8 @@ export class AddContactPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder,
               public restapiService: RestapiService) {
+    this.loadSpecialties();
+    this.loadSoftwares();
   }
 
   ionViewDidLoad() {
@@ -58,6 +62,22 @@ export class AddContactPage {
   addContact() {
     this.restapiService.saveContact(this.contactInfo).then((result) => {
       console.log(result);
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  loadSpecialties() {
+    this.restapiService.getSpecialties().then((result) => {
+      this.specialties = result;
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  loadSoftwares() {
+    this.restapiService.getSoftwares().then((result) => {
+      this.softwares = result;
     }, (err) => {
       console.log(err);
     });

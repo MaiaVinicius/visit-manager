@@ -17,18 +17,18 @@
   <form (ngSubmit)="addContact()">
     <ion-list>
       <ion-item>
-        <ion-label floating>Nome do cliente</ion-label>
+        <ion-label floating>Nome da clínica/consultório</ion-label>
         <ion-input name="name" required type="text" [(ngModel)]="contactInfo.name"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Telefone</ion-label>
-        <ion-input name="phone" required type="tel" [(ngModel)]="contactInfo.phone"></ion-input>
+        <ion-input name="phone" required type="tel" maxlength="12" [(ngModel)]="contactInfo.phone"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Celular</ion-label>
-        <ion-input name="celphone" type="tel" [(ngModel)]="contactInfo.celphone"></ion-input>
+        <ion-input name="celphone" type="tel" maxlength="12" [(ngModel)]="contactInfo.celphone"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -59,25 +59,14 @@
       <ion-item>
         <ion-label floating>Especialidades</ion-label>
         <ion-select name="specialties" multiple [(ngModel)]="contactInfo.specialties">
-          <ion-option value="nes">NES</ion-option>
-          <ion-option value="n64">Nintendo64</ion-option>
-          <ion-option value="ps">PlayStation</ion-option>
-          <ion-option value="genesis">Sega Genesis</ion-option>
-          <ion-option value="saturn">Sega Saturn</ion-option>
-          <ion-option value="snes">SNES</ion-option>
+          <ion-option *ngFor="let specialty of specialties" value="{{specialty.nomeEspecialidade}}">{{specialty.nomeEspecialidade}}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Sistema atual</ion-label>
         <ion-select name="currentSoftware" [(ngModel)]="contactInfo.currentSoftware">
-          <ion-option value="nes">Não tem</ion-option>
-          <ion-option value="nes">Visual Asa</ion-option>
-          <ion-option value="n64">Personal Med</ion-option>
-          <ion-option value="ps">HiDoctor</ion-option>
-          <ion-option value="genesis">ProDoctor</ion-option>
-          <ion-option value="saturn">Com Amigo</ion-option>
-          <ion-option value="snes">iClinic</ion-option>
+          <ion-option value="{{software.NomeSistema}}" *ngFor="let software of softwares">{{software.NomeSistema}}</ion-option>
         </ion-select>
       </ion-item>
 
