@@ -15,7 +15,7 @@
 
 <ion-content>
   <form (ngSubmit)="addContact()">
-    <ion-list>
+    <ion-list margin-top>
       <ion-item>
         <ion-label floating>Nome da clínica/consultório</ion-label>
         <ion-input name="name" required type="text" [(ngModel)]="contactInfo.name"></ion-input>
@@ -44,10 +44,10 @@
       <ion-item>
         <ion-label floating>Função com quem falou?</ion-label>
         <ion-select name="functionSpeakedWith" multiple [(ngModel)]="contactInfo.functionSpeakedWith">
-          <ion-option value="nes">Administrador</ion-option>
-          <ion-option value="n64">Secretária</ion-option>
-          <ion-option value="ps">Faturista</ion-option>
-          <ion-option value="genesis">Sócio</ion-option>
+          <ion-option value="1">Administrador</ion-option>
+          <ion-option value="2">Secretária</ion-option>
+          <ion-option value="3">Faturista</ion-option>
+          <ion-option value="4">Sócio</ion-option>
         </ion-select>
       </ion-item>
 

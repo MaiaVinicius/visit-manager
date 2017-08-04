@@ -3,6 +3,7 @@ import {NavController, NavParams} from 'ionic-angular';
 import {Geolocation} from '@ionic-native/geolocation';
 import {NativeGeocoder, NativeGeocoderReverseResult} from "@ionic-native/native-geocoder";
 import {RestapiService} from "../../providers/restapi-service/restapi-service";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the AddContactPage page.
@@ -17,12 +18,11 @@ import {RestapiService} from "../../providers/restapi-service/restapi-service";
 
 })
 export class AddContactPage {
+  user;
   address;
   specialties;
   softwares;
-  lat;
-  lng;
-  contactInfo = {};
+  contactInfo = {lat: 0, lng: 0};
   apiURL = "https://clinic.feegow.com.br/feegow_components/api/contatoscomercial/";
   private http: any;
 
@@ -31,6 +31,7 @@ export class AddContactPage {
               public restapiService: RestapiService) {
     this.loadSpecialties();
     this.loadSoftwares();
+    this.user = 104718;
   }
 
   ionViewDidLoad() {
@@ -54,14 +55,15 @@ export class AddContactPage {
       // data.coords.latitude
       // data.coords.longitude
 
-      this.lat = data.coords.latitude;
-      this.lng = data.coords.longitude;
+      this.contactInfo.lat = data.coords.latitude;
+      this.contactInfo.lng = data.coords.longitude;
     });
   }
 
   addContact() {
-    this.restapiService.saveContact(this.contactInfo).then((result) => {
+    this.restapiService.saveContact(this.contactInfo, this.user).then((result) => {
       console.log(result);
+      this.navCtrl.setRoot(HomePage);
     }, (err) => {
       console.log(err);
     });

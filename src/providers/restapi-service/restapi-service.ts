@@ -17,13 +17,13 @@ export class RestapiService {
     console.log('Hello RestapiServiceProvider Provider');
   }
 
-  getVisits() {
+  getVisits(user) {
     if (this.data) {
       return Promise.resolve(this.data);
     }
 
     return new Promise(resolve => {
-      this.http.get(this.apiUrl + '/getVisits')
+      this.http.get(this.apiUrl + '/getVisits?user=' + user)
         .map(res => res.json())
         .subscribe(data => {
           this.data = data;
@@ -32,9 +32,9 @@ export class RestapiService {
     });
   }
 
-  saveContact(data) {
+  saveContact(data, user) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl + '/saveContact', JSON.stringify(data))
+      this.http.post(this.apiUrl + '/saveContact?user=' + user, JSON.stringify(data))
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -53,6 +53,7 @@ export class RestapiService {
         });
     });
   }
+
   getSoftwares() {
     return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl + '/getSoftwares')

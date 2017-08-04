@@ -9,12 +9,14 @@ import {RestapiService} from "../../providers/restapi-service/restapi-service";
 })
 export class HomePage {
   visitsToday;
-  contacts = "---";
+  contacts = false;
   sqlstorage: any = null;
   visits: any;
+  user: number;
 
   constructor(public navCtrl: NavController, public restapiService: RestapiService) {
     this.sqlstorage = new SQLite();
+    this.user = 104718;
 
     this.getVisits();
   }
@@ -24,7 +26,7 @@ export class HomePage {
   }
 
   getVisits() {
-    this.restapiService.getVisits()
+    this.restapiService.getVisits(this.user)
       .then(data => {
         this.visits = data.visits;
       });
