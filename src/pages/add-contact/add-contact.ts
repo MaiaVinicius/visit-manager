@@ -13,75 +13,90 @@ import {HomePage} from "../home/home";
  */
 
 @Component({
-  selector: 'page-add-contact',
-  templateUrl: 'add-contact.html'
+    selector: 'page-add-contact',
+    templateUrl: 'add-contact.html'
 
 })
 export class AddContactPage {
-  user;
-  address;
-  specialties;
-  softwares;
-  contactInfo = {lat: 0, lng: 0};
-  apiURL = "https://clinic.feegow.com.br/feegow_components/api/contatoscomercial/";
-  private http: any;
+    user;
+    address;
+    specialties;
+    softwares;
+    contactInfo;
+    apiURL = "https://clinic.feegow.com.br/feegow_components/api/contatoscomercial/";
+    private http: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder,
-              public restapiService: RestapiService) {
-    this.loadSpecialties();
-    this.loadSoftwares();
-    this.user = 104718;
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams,
+                private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder,
+                public restapiService: RestapiService) {
+        this.loadSpecialties();
+        this.loadSoftwares();
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddContactPage');
-  }
+        this.resetForm();
+        this.user = 104718;
+    }
 
-  ngOnInit() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      // resp.coords.latitude
-      // resp.coords.longitude
-      this.address = resp.coords.latitude;
-    }).catch((error) => {
-      this.address = "Erro " + error;
-    });
+    resetForm() {
+      this.contactInfo = {
+          lat: 0,
+          lng: 0,
+          acceptInsurance: 2,
+          functionSpeakedWith: 2,
+          currentSoftware: "Outro",
+          satisfaction: 2
+      };
+    }
 
-    let watch = this.geolocation.watchPosition();
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad AddContactPage');
+    }
 
-    this.address = "Get geolocation";
-    watch.subscribe((data) => {
-      // data can be a set of coordinates, or an error (if an error occurred).
-      // data.coords.latitude
-      // data.coords.longitude
+    ngOnInit() {
+        this.geolocation.getCurrentPosition().then((resp) => {
+            // resp.coords.latitude
+            // resp.coords.longitude
+            this.address = resp.coords.latitude;
+        }).catch((error) => {
+            this.address = "Erro " + error;
+        });
 
-      this.contactInfo.lat = data.coords.latitude;
-      this.contactInfo.lng = data.coords.longitude;
-    });
-  }
+        let watch = this.geolocation.watchPosition();
 
-  addContact() {
-    this.restapiService.saveContact(this.contactInfo, this.user).then((result) => {
-      console.log(result);
-      this.navCtrl.setRoot(HomePage);
-    }, (err) => {
-      console.log(err);
-    });
-  }
+        this.address = "Get geolocation";
+        watch.subscribe((data) => {
+            // data can be a set of coordinates, or an error (if an error occurred).
+            // data.coords.latitude
+            // data.coords.longitude
 
-  loadSpecialties() {
-    this.restapiService.getSpecialties().then((result) => {
-      this.specialties = result;
-    }, (err) => {
-      console.log(err);
-    });
-  }
+            this.contactInfo.lat = data.coords.latitude;
+            this.contactInfo.lng = data.coords.longitude;
+        });
+    }
 
-  loadSoftwares() {
-    this.restapiService.getSoftwares().then((result) => {
-      this.softwares = result;
-    }, (err) => {
-      console.log(err);
-    });
-  }
+    addContact() {
+        this.restapiService.saveContact(this.contactInfo, this.user).then((result) => {
+            console.log(result);
+
+            this.resetForm();
+            this.navCtrl.setRoot(HomePage);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    loadSpecialties() {
+        this.restapiService.getSpecialties().then((result) => {
+            this.specialties = result;
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    loadSoftwares() {
+        this.restapiService.getSoftwares().then((result) => {
+            this.softwares = result;
+        }, (err) => {
+            console.log(err);
+        });
+    }
 }

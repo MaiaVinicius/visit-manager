@@ -64,6 +64,14 @@
       </ion-item>
 
       <ion-item>
+        <ion-label floating>Aceita convenio?</ion-label>
+        <ion-select name="acceptInsurance" [(ngModel)]="contactInfo.acceptInsurance">
+          <ion-option value="1">Sim</ion-option>
+          <ion-option value="2">Não</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
         <ion-label floating>Sistema atual</ion-label>
         <ion-select name="currentSoftware" [(ngModel)]="contactInfo.currentSoftware">
           <ion-option value="{{software.NomeSistema}}" *ngFor="let software of softwares">{{software.NomeSistema}}</ion-option>
