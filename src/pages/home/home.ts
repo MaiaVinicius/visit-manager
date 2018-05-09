@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
-import {SQLite} from 'ionic-native';
-import {RestapiService} from "../../providers/restapi-service/restapi-service";
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { RestapiService } from "../../providers/restapi-service/restapi-service";
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -10,14 +10,15 @@ import {RestapiService} from "../../providers/restapi-service/restapi-service";
 export class HomePage {
   visitsToday;
   contacts = false;
-  sqlstorage: any = null;
   visits: any;
   user: number;
 
-  constructor(public navCtrl: NavController, public restapiService: RestapiService) {
-    this.sqlstorage = new SQLite();
+  constructor(public navCtrl: NavController, public restapiService: RestapiService, private storage: Storage) {
     this.user = 104718;
 
+    this.getVisits();
+  }
+  ionViewWillEnter() {
     this.getVisits();
   }
 
@@ -26,9 +27,8 @@ export class HomePage {
   }
 
   getVisits() {
-    this.restapiService.getVisits(this.user)
-      .then(data => {
-        this.visits = data.visits;
-      });
+    this.storage.get('visits').then((data) => {
+      this.visits = JSON.parse(data);
+    });
   }
 }

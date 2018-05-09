@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
-import {Geolocation} from '@ionic-native/geolocation';
-import {NativeGeocoder, NativeGeocoderReverseResult} from "@ionic-native/native-geocoder";
-import {RestapiService} from "../../providers/restapi-service/restapi-service";
-import {HomePage} from "../home/home";
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
+import { NativeGeocoder, NativeGeocoderReverseResult } from "@ionic-native/native-geocoder";
+import { RestapiService } from "../../providers/restapi-service/restapi-service";
+import { Storage } from '@ionic/storage';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the AddContactPage page.
@@ -27,8 +28,9 @@ export class AddContactPage {
     private http: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder,
-                public restapiService: RestapiService) {
+        private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder,
+        public restapiService: RestapiService, private storage: Storage, private alertCtrl: AlertController) {
+
         this.loadSpecialties();
         this.loadSoftwares();
 
@@ -37,18 +39,14 @@ export class AddContactPage {
     }
 
     resetForm() {
-      this.contactInfo = {
-          lat: 0,
-          lng: 0,
-          acceptInsurance: 2,
-          functionSpeakedWith: 2,
-          currentSoftware: "Outro",
-          satisfaction: 2
-      };
-    }
-
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad AddContactPage');
+        this.contactInfo = {
+            lat: 0,
+            lng: 0,
+            acceptInsurance: 2,
+            functionSpeakedWith: 2,
+            currentSoftware: "Outro",
+            satisfaction: 2
+        };
     }
 
     ngOnInit() {
@@ -73,15 +71,44 @@ export class AddContactPage {
         });
     }
 
-    addContact() {
-        this.restapiService.saveContact(this.contactInfo, this.user).then((result) => {
-            console.log(result);
-
-            this.resetForm();
-            this.navCtrl.setRoot(HomePage);
-        }, (err) => {
-            console.log(err);
+    showAlert() {
+        let alert = this.alertCtrl.create({
+            title: 'Sucesso',
+            subTitle: 'Seu item foi adicionado com sucesso!',
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: () => {
+                        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+                    }
+                }
+            ]
         });
+        alert.present();
+    }
+
+    addContact() {
+        this.storage.get('visits').then((data) => {
+            var visits;
+            if (data === null) {
+                visits = [];
+            } else {
+                visits = JSON.parse(data);
+            }
+
+            visits.push(this.contactInfo);
+            this.storage.set('visits', JSON.stringify(visits));
+            this.showAlert();
+        });
+
+        //this.restapiService.saveContact(this.contactInfo, this.user).then((result) => {
+        //  console.log(result);
+
+        //this.resetForm();
+        //this.navCtrl.setRoot(HomePage);
+        // }, (err) => {
+        //   console.log(err);
+        //});
     }
 
     loadSpecialties() {

@@ -14,28 +14,27 @@ import {NativeGeocoder} from "@ionic-native/native-geocoder";
 import {SQLite} from "@ionic-native/sqlite";
 import {RestapiService} from '../providers/restapi-service/restapi-service';
 import {Http, HttpModule} from "@angular/http";
-import {ConfigPage} from "../pages/config/config";
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
     declarations: [
         MyApp,
         HomePage,
         TabsPage,
-        AddContactPage,
-        ConfigPage
+        AddContactPage
     ],
     imports: [
         HttpModule,
         BrowserModule,
-        IonicModule.forRoot(MyApp)
+        IonicModule.forRoot(MyApp),
+        IonicStorageModule.forRoot()
     ],
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
         HomePage,
         TabsPage,
-        AddContactPage,
-        ConfigPage
+        AddContactPage
     ],
     providers: [
         // Http,
