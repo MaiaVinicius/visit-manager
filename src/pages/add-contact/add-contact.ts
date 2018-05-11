@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { NativeGeocoder, NativeGeocoderReverseResult } from "@ionic-native/native-geocoder";
 import { RestapiService } from "../../providers/restapi-service/restapi-service";
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
@@ -26,10 +25,9 @@ export class AddContactPage {
     softwares;
     contactInfo;
     apiURL = "https://clinic.feegow.com.br/feegow_components/api/contatoscomercial/";
-    private http: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-        private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder,
+        private geolocation: Geolocation,
         public restapiService: RestapiService, private storage: Storage, private alertCtrl: AlertController, public events: Events) {
 
         this.loadSpecialties();

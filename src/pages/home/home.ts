@@ -54,15 +54,7 @@ export class HomePage {
         {
           text: 'Sim',
           handler: () => {
-            this.restapiService.saveContact(this.visits, this.user)      
-            .subscribe(
-              res => {
-                this.postAPI();
-              },
-              err => {
-                this.errorSyncAlert();
-              }
-            );
+            this.postAPI();
           }
         },
 
@@ -107,4 +99,5 @@ export class HomePage {
       }
     );
   }
+  
 }
