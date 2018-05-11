@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let visit of visits">
+    <ion-item (click)="infoModal(i)" *ngFor="let visit of visits; let i = index">
       <h2>{{visit.name}}</h2>
       <p>{{visit.phone}}</p>
     </ion-item>

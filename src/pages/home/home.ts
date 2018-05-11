@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { RestapiService } from "../../providers/restapi-service/restapi-service";
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
+import { InfoModalPage } from '../../pages/info-modal/info-modal';
 
 @Component({
   selector: 'page-home',
@@ -15,11 +17,8 @@ export class HomePage {
   user: number;
   apiURL = "https://clinic.feegow.com.br/feegow_components/api/contatoscomercial/";
 
-  constructor(public navCtrl: NavController, public restapiService: RestapiService, private storage: Storage, private alertCtrl: AlertController) {
-    this.user = 104718;
+  constructor(public navCtrl: NavController, public restapiService: RestapiService, private storage: Storage, private alertCtrl: AlertController, public modalCtrl: ModalController) {
 
-    this.getVisits();
-    this.autoSync();
   }
 
   ionViewWillEnter() {
@@ -87,17 +86,32 @@ export class HomePage {
     }
   }
 
-  postAPI() {
-    this.restapiService.saveContact(this.visits, this.user)      
-    .subscribe(
-      res => {
-        this.sucessSyncAlert();
-        this.storage.remove('visits')
-      },
-      err => {
-        this.errorSyncAlert();
-      }
-    );
+  infoModal(i) {
+    this.storage.get('visits').then((data) => {
+      let jsonData = JSON.parse(data);
+
+      let info = jsonData[i];
+
+      let infoModal = this.modalCtrl.create(InfoModalPage, { info: info });
+      infoModal.present();
+
+    });
   }
-  
+
+  postAPI() {
+    this.storage.get('userId').then((data) => {
+      this.restapiService.saveContact(this.visits, data)
+        .subscribe(
+          res => {
+            this.sucessSyncAlert();
+            this.storage.remove('visits');
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          },
+          err => {
+            this.errorSyncAlert();
+          }
+        );
+    });
+  }
+
 }

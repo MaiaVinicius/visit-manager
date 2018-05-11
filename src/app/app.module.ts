@@ -4,7 +4,9 @@ import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {MyApp} from './app.component';
 
 import {HomePage} from '../pages/home/home';
+import {ConfigPage} from '../pages/config/config';
 import {TabsPage} from '../pages/tabs/tabs';
+import {InfoModalPage} from '../pages/info-modal/info-modal';
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -21,7 +23,9 @@ import { IonicStorageModule } from '@ionic/storage';
         MyApp,
         HomePage,
         TabsPage,
-        AddContactPage
+        AddContactPage,
+        InfoModalPage,
+        ConfigPage
     ],
     imports: [
         HttpModule,
@@ -34,7 +38,9 @@ import { IonicStorageModule } from '@ionic/storage';
         MyApp,
         HomePage,
         TabsPage,
-        AddContactPage
+        AddContactPage,
+        InfoModalPage,
+        ConfigPage
     ],
     providers: [
         // Http,

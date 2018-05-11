@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { HomePage } from '../home/home';
+import { ConfigPage } from '../config/config';
 import { AddContactPage } from '../add-contact/add-contact';
 import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
@@ -15,6 +16,7 @@ export class TabsPage {
     visits = false;
     tab1Root = HomePage;
     tab2Root = AddContactPage;
+    tab3Root = ConfigPage;
 
     constructor(private storage: Storage, public events: Events) {
         this.user = 104718;
