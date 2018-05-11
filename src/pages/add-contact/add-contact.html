@@ -14,36 +14,36 @@
 
 
 <ion-content>
-  <form (ngSubmit)="addContact()">
+  <form (ngSubmit)="addContact()" ngNativeValidate>
     <ion-list margin-top>
       <ion-item>
         <ion-label floating>Nome da clínica/consultório</ion-label>
-        <ion-input name="name" required type="text" [(ngModel)]="contactInfo.name"></ion-input>
+        <ion-input required name="name" required type="text" [(ngModel)]="contactInfo.name"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Telefone</ion-label>
-        <ion-input name="phone" required type="tel" maxlength="12" [(ngModel)]="contactInfo.phone"></ion-input>
+        <ion-input required name="phone" required type="tel" maxlength="12" [(ngModel)]="contactInfo.phone"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Celular</ion-label>
-        <ion-input name="celphone" type="tel" maxlength="12" [(ngModel)]="contactInfo.celphone"></ion-input>
+        <ion-input required name="celphone" type="tel" maxlength="12" [(ngModel)]="contactInfo.celphone"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>E-mail</ion-label>
-        <ion-input name="email" required type="email" [(ngModel)]="contactInfo.email"></ion-input>
+        <ion-input required name="email" required type="email" [(ngModel)]="contactInfo.email"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Nome com quem falou?</ion-label>
-        <ion-input name="nameSpeakedWith" required type="text" [(ngModel)]="contactInfo.nameSpeakedWith"></ion-input>
+        <ion-input required name="nameSpeakedWith" required type="text" [(ngModel)]="contactInfo.nameSpeakedWith"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Função com quem falou?</ion-label>
-        <ion-select name="functionSpeakedWith" multiple [(ngModel)]="contactInfo.functionSpeakedWith">
+        <ion-select required name="functionSpeakedWith" multiple [(ngModel)]="contactInfo.functionSpeakedWith">
           <ion-option value="1">Administrador</ion-option>
           <ion-option value="2">Secretária</ion-option>
           <ion-option value="3">Faturista</ion-option>
@@ -53,19 +53,19 @@
 
       <ion-item>
         <ion-label floating>Nome do administrador</ion-label>
-        <ion-input name="administratorName" required type="text" [(ngModel)]="contactInfo.administratorName"></ion-input>
+        <ion-input required name="administratorName" required type="text" [(ngModel)]="contactInfo.administratorName"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Especialidades</ion-label>
-        <ion-select name="specialties" multiple [(ngModel)]="contactInfo.specialties">
+        <ion-select required name="specialties" multiple [(ngModel)]="contactInfo.specialties">
           <ion-option *ngFor="let specialty of specialties" value="{{specialty.nomeEspecialidade}}">{{specialty.nomeEspecialidade}}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Aceita convenio?</ion-label>
-        <ion-select name="acceptInsurance" [(ngModel)]="contactInfo.acceptInsurance">
+        <ion-select required name="acceptInsurance" [(ngModel)]="contactInfo.acceptInsurance">
           <ion-option value="1">Sim</ion-option>
           <ion-option value="2">Não</ion-option>
         </ion-select>
@@ -73,14 +73,14 @@
 
       <ion-item>
         <ion-label floating>Sistema atual</ion-label>
-        <ion-select name="currentSoftware" [(ngModel)]="contactInfo.currentSoftware">
+        <ion-select required name="currentSoftware" [(ngModel)]="contactInfo.currentSoftware">
           <ion-option value="{{software.NomeSistema}}" *ngFor="let software of softwares">{{software.NomeSistema}}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Satisfação com o sistema atual</ion-label>
-        <ion-select name="satisfaction" [(ngModel)]="contactInfo.satisfaction">
+        <ion-select required name="satisfaction" [(ngModel)]="contactInfo.satisfaction">
           <ion-option value="1">Baixa</ion-option>
           <ion-option value="2">Média</ion-option>
           <ion-option value="3">Alta</ion-option>
@@ -89,12 +89,12 @@
 
       <ion-item>
         <ion-label floating>Usuários aproximados</ion-label>
-        <ion-input name="userAproximately" type="number" [(ngModel)]="contactInfo.userAproximately"></ion-input>
+        <ion-input required name="userAproximately" type="number" [(ngModel)]="contactInfo.userAproximately"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Interesse no Feegow Clinic</ion-label>
-        <ion-select name="interestLevel" [(ngModel)]="contactInfo.interestLevel">
+        <ion-select required name="interestLevel" [(ngModel)]="contactInfo.interestLevel">
           <ion-option value="1">Baixo</ion-option>
           <ion-option value="2">Médio</ion-option>
           <ion-option value="3">Alto</ion-option>
@@ -103,7 +103,7 @@
 
       <ion-item>
         <ion-label floating>Observações</ion-label>
-        <ion-textarea name="obs" [(ngModel)]="contactInfo.obs"></ion-textarea>
+        <ion-textarea required name="obs" [(ngModel)]="contactInfo.obs"></ion-textarea>
       </ion-item>
 
       <ion-item>

@@ -1,8 +1,10 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
-import {HomePage} from '../home/home';
-import {AddContactPage} from '../add-contact/add-contact';
-import {RestapiService} from "../../providers/restapi-service/restapi-service"
+import { HomePage } from '../home/home';
+import { AddContactPage } from '../add-contact/add-contact';
+import { Storage } from '@ionic/storage';
+import { Events } from 'ionic-angular';
+
 
 @Component({
     templateUrl: 'tabs.html'
@@ -14,16 +16,23 @@ export class TabsPage {
     tab1Root = HomePage;
     tab2Root = AddContactPage;
 
-    constructor(public restapiService: RestapiService) {
+    constructor(private storage: Storage, public events: Events) {
         this.user = 104718;
-        //this.getVisits();
+        events.subscribe('visitsnumber', (visits) => {
+            this.visits = visits
+        });
     }
 
-    //getVisits() {
-        //this.restapiService.getVisits(this.user)
-            //.then(data => {
-
-               // this.visits = data.visits;
-           // });
-    //}
+    ionViewDidEnter() {
+        this.storage.get('visits').then((data) => {
+            var visits;
+            if (data === null) {
+                visits = [];
+            } else {
+                visits = JSON.parse(data);
+            }
+            this.visits = visits;
+          });
+       }
+      
 }

@@ -5,6 +5,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult } from "@ionic-native/nativ
 import { RestapiService } from "../../providers/restapi-service/restapi-service";
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 
 /**
  * Generated class for the AddContactPage page.
@@ -29,7 +30,7 @@ export class AddContactPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
         private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder,
-        public restapiService: RestapiService, private storage: Storage, private alertCtrl: AlertController) {
+        public restapiService: RestapiService, private storage: Storage, private alertCtrl: AlertController, public events: Events) {
 
         this.loadSpecialties();
         this.loadSoftwares();
@@ -50,24 +51,15 @@ export class AddContactPage {
     }
 
     ngOnInit() {
+    }
+
+    ionViewWillEnter() {
         this.geolocation.getCurrentPosition().then((resp) => {
-            // resp.coords.latitude
-            // resp.coords.longitude
-            this.address = resp.coords.latitude;
+
+            this.contactInfo.lat = resp.coords.latitude;
+            this.contactInfo.lng = resp.coords.longitude;
         }).catch((error) => {
-            this.address = "Erro " + error;
-        });
-
-        let watch = this.geolocation.watchPosition();
-
-        this.address = "Get geolocation";
-        watch.subscribe((data) => {
-            // data can be a set of coordinates, or an error (if an error occurred).
-            // data.coords.latitude
-            // data.coords.longitude
-
-            this.contactInfo.lat = data.coords.latitude;
-            this.contactInfo.lng = data.coords.longitude;
+            console.log('Error getting location', error);
         });
     }
 
@@ -98,17 +90,9 @@ export class AddContactPage {
 
             visits.push(this.contactInfo);
             this.storage.set('visits', JSON.stringify(visits));
+            this.events.publish('visitsnumber', visits);
             this.showAlert();
         });
-
-        //this.restapiService.saveContact(this.contactInfo, this.user).then((result) => {
-        //  console.log(result);
-
-        //this.resetForm();
-        //this.navCtrl.setRoot(HomePage);
-        // }, (err) => {
-        //   console.log(err);
-        //});
     }
 
     loadSpecialties() {
