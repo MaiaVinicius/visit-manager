@@ -14,15 +14,16 @@
 
 
 <ion-content padding>
-    <form (ngSubmit)="setUserId()" ngNativeValidate>
-        <ion-list margin-top>
-          <ion-item>
-            <ion-label floating>Defina o ID</ion-label>
-            <ion-input required name="userId" required type="text" [(ngModel)]="userId"></ion-input>
-          </ion-item>
-    
-            <button ion-button padding full>Definir</button>
+  <form (ngSubmit)="setUserId()" ngNativeValidate>
+    <ion-list margin-top>
+      <ion-item>
+        <ion-label floating>Defina o ID</ion-label>
+        <ion-input required name="userId" required type="text" [(ngModel)]="userId"></ion-input>
+      </ion-item>
+      <ion-item>
+        <button ion-button padding full>Definir</button>
+      </ion-item>
 
-        </ion-list>
-      </form>
+    </ion-list>
+  </form>
 </ion-content>
